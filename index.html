@@ -65,7 +65,7 @@
     -webkit-background-clip:text;-webkit-text-fill-color:transparent;
     letter-spacing:.15em;cursor:pointer;
   }
-  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
   .nav-links a{
     color:var(--white);text-decoration:none;font-size:.85rem;
     font-family:var(--font-head);letter-spacing:.1em;
@@ -78,6 +78,17 @@
   }
   .nav-links a:hover{color:var(--neon-glow);text-shadow:0 0 12px var(--neon)}
   .nav-links a:hover::after{width:100%}
+
+  /* TikTok nav icon */
+  .nav-tiktok{
+    display:inline-flex;align-items:center;gap:.35rem;
+    color:var(--white);text-decoration:none;font-size:.85rem;
+    font-family:var(--font-head);letter-spacing:.1em;font-weight:600;
+    transition:color .2s,text-shadow .2s;
+  }
+  .nav-tiktok:hover{color:#ff2d55;text-shadow:0 0 12px #ff2d55}
+  .nav-tiktok svg{width:14px;height:14px;fill:currentColor;vertical-align:middle}
+
   .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}
   .hamburger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:.3s}
   .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -90,7 +101,7 @@
       transform:translateY(-120%);transition:transform .35s cubic-bezier(.4,0,.2,1);
     }
     .nav-links.open{transform:translateY(0)}
-    .nav-links a{display:block;padding:.8rem 2rem;font-size:.9rem}
+    .nav-links a,.nav-tiktok{display:block;padding:.8rem 2rem;font-size:.9rem}
     .hamburger{display:flex}
   }
 
@@ -348,12 +359,10 @@
     letter-spacing:.1em;
   }
 
-  /* ═══ GALLERY — ANIMATED BORDER ═══ */
+  /* ═══ GALLERY ═══ */
   #gallery{
     background:linear-gradient(180deg,var(--bg) 0%,var(--bg3) 50%,var(--bg) 100%);
   }
-
-  /* Animated border wrapper using conic-gradient spin */
   .gallery-border-anim{
     max-width:920px;margin:0 auto 2rem;
     padding:3px;border-radius:18px;
@@ -366,24 +375,13 @@
     from{background:conic-gradient(from 0deg, #CC0000, #FF4400, #FF8800, #FF2222, #880000, #CC0000)}
     to{background:conic-gradient(from 360deg, #CC0000, #FF4400, #FF8800, #FF2222, #880000, #CC0000)}
   }
-
-  /* pseudo-element approach for the true spinning border */
   .gallery-border-anim::before{
-    content:'';
-    position:absolute;inset:0;border-radius:18px;
+    content:'';position:absolute;inset:0;border-radius:18px;
     background:conic-gradient(from var(--angle,0deg), transparent 0deg, #FF2222 60deg, #FF8800 120deg, transparent 180deg);
-    animation:rotateBorder 2.5s linear infinite;
-    z-index:0;
+    animation:rotateBorder 2.5s linear infinite;z-index:0;
   }
-  @keyframes rotateBorder{
-    to{--angle:360deg}
-  }
-  @property --angle {
-    syntax: '<angle>';
-    initial-value: 0deg;
-    inherits: false;
-  }
-
+  @keyframes rotateBorder{to{--angle:360deg}}
+  @property --angle{syntax:'<angle>';initial-value:0deg;inherits:false}
   .gallery-slider-wrap{
     position:relative;overflow:hidden;border-radius:15px;
     background:var(--bg);z-index:1;
@@ -405,8 +403,6 @@
     color:rgba(204,0,0,.35);display:flex;flex-direction:column;gap:.8rem;align-items:center;
   }
   .gallery-ph .ph-icon{font-size:3rem;opacity:.3}
-
-  /* Gallery grid with fire border on active thumb */
   .gallery-grid{
     display:grid;grid-template-columns:repeat(5,1fr);gap:10px;
     max-width:900px;margin:0 auto;
@@ -418,14 +414,9 @@
     background:linear-gradient(135deg,var(--bg3),#0f0000);
     display:flex;align-items:center;justify-content:center;
     font-size:1.2rem;color:rgba(204,0,0,.25);
-    transition:transform .3s,box-shadow .3s,border-color .3s;
-    position:relative;
+    transition:transform .3s,box-shadow .3s,border-color .3s;position:relative;
   }
-  .gallery-thumb:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 20px rgba(204,0,0,.4);
-    border-color:var(--neon);
-  }
+  .gallery-thumb:hover{transform:scale(1.05);box-shadow:0 0 20px rgba(204,0,0,.4);border-color:var(--neon)}
   .gallery-thumb.active{
     border-color:transparent;
     box-shadow:0 0 0 2px var(--neon),0 0 20px rgba(255,34,34,.6);
@@ -435,16 +426,10 @@
     0%,100%{box-shadow:0 0 0 2px #CC0000,0 0 15px rgba(204,0,0,.5)}
     50%{box-shadow:0 0 0 2px #FF4400,0 0 30px rgba(255,68,0,.8)}
   }
-
-  /* Floating ember particles around gallery */
-  .gallery-embers{
-    position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:15px;
-  }
+  .gallery-embers{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:15px}
   .ember{
     position:absolute;width:3px;height:3px;border-radius:50%;
-    background:var(--neon-bright);
-    animation:emberFloat linear infinite;
-    opacity:0;
+    background:var(--neon-bright);animation:emberFloat linear infinite;opacity:0;
   }
   @keyframes emberFloat{
     0%{transform:translateY(100%) translateX(0) scale(1);opacity:0}
@@ -462,10 +447,7 @@
     opacity:0;pointer-events:none;transition:opacity .3s;
   }
   .lightbox.open{opacity:1;pointer-events:all}
-  .lightbox-img{
-    max-width:90vw;max-height:90vh;border-radius:12px;
-    box-shadow:0 0 60px rgba(204,0,0,.4);
-  }
+  .lightbox-img{max-width:90vw;max-height:90vh;border-radius:12px;box-shadow:0 0 60px rgba(204,0,0,.4)}
   .lightbox-close{
     position:absolute;top:20px;right:20px;
     background:rgba(204,0,0,.3);border:1px solid var(--neon);
@@ -477,43 +459,66 @@
 
   /* ═══ JOIN ═══ */
   #join{background:var(--bg)}
-  .join-inner{max-width:700px;margin:0 auto;text-align:center;}
+  .join-inner{max-width:700px;margin:0 auto;text-align:center}
   .join-desc{color:#cc9999;font-size:1rem;line-height:1.7;margin-bottom:2.5rem;font-style:italic}
+
+  /* Social buttons row */
+  .social-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+
   .btn-discord{
     display:inline-flex;align-items:center;gap:.8rem;
-    padding:1.1rem 3rem;
-    font-family:var(--font-head);font-size:1rem;font-weight:700;
+    padding:1.1rem 2.5rem;
+    font-family:var(--font-head);font-size:.9rem;font-weight:700;
     letter-spacing:.15em;text-decoration:none;color:#fff;
     background:linear-gradient(135deg,#5865F2,#404EED);
     border-radius:50px;
     border:1px solid rgba(255,255,255,.2);
     box-shadow:0 0 40px rgba(88,101,242,.5),0 8px 30px rgba(0,0,0,.4);
-    transition:all .3s;margin-bottom:3rem;
+    transition:all .3s;
   }
   .btn-discord:hover{
     transform:translateY(-4px) scale(1.04);
     box-shadow:0 0 60px rgba(88,101,242,.8),0 12px 40px rgba(0,0,0,.5);
   }
+
+  /* ✦ TikTok button */
+  .btn-tiktok{
+    display:inline-flex;align-items:center;gap:.8rem;
+    padding:1.1rem 2.5rem;
+    font-family:var(--font-head);font-size:.9rem;font-weight:700;
+    letter-spacing:.15em;text-decoration:none;color:#fff;
+    background:linear-gradient(135deg,#010101,#1a1a1a);
+    border-radius:50px;
+    border:1px solid rgba(255,255,255,.15);
+    box-shadow:0 0 30px rgba(255,45,85,.35),0 8px 30px rgba(0,0,0,.4);
+    transition:all .3s;position:relative;overflow:hidden;
+  }
+  .btn-tiktok::before{
+    content:'';position:absolute;inset:0;border-radius:50px;
+    background:linear-gradient(135deg,rgba(105,201,208,.08),rgba(255,45,85,.08));
+    opacity:0;transition:opacity .3s;
+  }
+  .btn-tiktok:hover{
+    transform:translateY(-4px) scale(1.04);
+    box-shadow:0 0 50px rgba(255,45,85,.6),0 12px 40px rgba(0,0,0,.5);
+  }
+  .btn-tiktok:hover::before{opacity:1}
+  .tiktok-icon{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px}
+  .tiktok-icon svg{width:100%;height:100%;fill:#fff}
+
   .discord-icon{font-size:1.4rem}
   .qr-wrap{
     background:var(--card);border:1px solid var(--border);
     border-radius:20px;padding:2.5rem;display:inline-block;
     margin-bottom:3rem;
-    box-shadow:0 0 30px rgba(204,0,0,.15);
-    transition:box-shadow .3s;
+    box-shadow:0 0 30px rgba(204,0,0,.15);transition:box-shadow .3s;
   }
   .qr-wrap:hover{box-shadow:0 0 50px rgba(204,0,0,.35)}
   .qr-img{width:200px;height:auto;border-radius:12px;box-shadow:0 0 20px rgba(204,0,0,.3)}
-  .qr-label{
-    font-size:.8rem;font-family:var(--font-head);
-    letter-spacing:.15em;color:var(--neon-glow);
-    margin-top:1rem;
-  }
+  .qr-label{font-size:.8rem;font-family:var(--font-head);letter-spacing:.15em;color:var(--neon-glow);margin-top:1rem}
   .map-placeholder{
-    width:100%;max-width:700px;margin:0 auto;
-    height:250px;border-radius:16px;
-    background:linear-gradient(135deg,var(--bg3),#0f0000);
-    border:1px solid var(--border);
+    width:100%;max-width:700px;margin:0 auto;height:250px;border-radius:16px;
+    background:linear-gradient(135deg,var(--bg3),#0f0000);border:1px solid var(--border);
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;
     color:rgba(204,0,0,.35);font-family:var(--font-head);font-size:.8rem;letter-spacing:.2em;
   }
@@ -531,19 +536,30 @@
     -webkit-background-clip:text;-webkit-text-fill-color:transparent;
     margin-bottom:.5rem;
   }
-  .footer-tagline{color:var(--muted);font-size:.85rem;margin-bottom:1.5rem}
-  .footer-sep{
-    width:60px;height:2px;margin:.8rem auto 1.5rem;
-    background:linear-gradient(90deg,var(--neon),var(--accent));
-    border-radius:2px;
+  .footer-tagline{color:var(--muted);font-size:.85rem;margin-bottom:1rem}
+  .footer-socials{display:flex;justify-content:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+  .footer-social-link{
+    display:inline-flex;align-items:center;gap:.4rem;
+    font-family:var(--font-head);font-size:.7rem;letter-spacing:.1em;
+    text-decoration:none;padding:.35rem .9rem;border-radius:20px;
+    transition:all .25s;
   }
+  .footer-social-link.discord{
+    color:#7289da;border:1px solid rgba(114,137,218,.35);background:rgba(114,137,218,.07);
+  }
+  .footer-social-link.discord:hover{background:rgba(114,137,218,.2);box-shadow:0 0 15px rgba(114,137,218,.4)}
+  .footer-social-link.tiktok{
+    color:#ff2d55;border:1px solid rgba(255,45,85,.35);background:rgba(255,45,85,.07);
+  }
+  .footer-social-link.tiktok:hover{background:rgba(255,45,85,.2);box-shadow:0 0 15px rgba(255,45,85,.4)}
+  .footer-social-link svg{width:12px;height:12px;fill:currentColor}
+  .footer-sep{width:60px;height:2px;margin:.5rem auto 1.5rem;background:linear-gradient(90deg,var(--neon),var(--accent));border-radius:2px}
   .footer-copy{color:#553333;font-size:.8rem}
 
   /* PAGE TABS */
   .page{display:none}
   .page.active{display:block}
 
-  /* Scanline effect on home */
   .scanlines{
     position:fixed;top:0;left:0;width:100%;height:100%;
     pointer-events:none;z-index:0;
@@ -565,6 +581,15 @@
     <li><a href="#" onclick="showPage('members');return false">MEMBERS</a></li>
     <li><a href="#" onclick="showPage('gallery');return false">GALLERY</a></li>
     <li><a href="#" onclick="showPage('join');return false">JOIN US</a></li>
+    <li>
+      <!-- ✦ TikTok nav icon -->
+      <a href="https://www.tiktok.com/@kamexfamily" target="_blank" class="nav-tiktok" title="TikTok KMF">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+        </svg>
+        TIKTOK
+      </a>
+    </li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleNav()">
     <span></span><span></span><span></span>
@@ -580,7 +605,7 @@
   <div class="hero-tag fade-in">ROBLOX GAMING COMMUNITY</div>
   <h1 class="hero-title fade-in">WELCOME TO<br>KAMEX FAMILY</h1>
   <p class="hero-sub fade-in">Komunitas Roblox dengan solidaritas tinggi dan kekeluargaan yang kuat</p>
-  <a href="https://discord.gg/" target="_blank" class="btn-cta fade-in">⚡ JOIN SEKARANG</a>
+  <a href="https://discord.gg/CvKMvcZJyd" target="_blank" class="btn-cta fade-in">⚡ JOIN SEKARANG</a>
 
   <div class="home-slider-wrap fade-in">
     <button class="slider-arrow prev" onclick="homeSlide(-1)">‹</button>
@@ -658,9 +683,7 @@
     <h2 class="section-title fade-in">Struktur Tim</h2>
     <div class="glow-line fade-in"></div>
     <p class="section-sub fade-in">Keluarga yang membangun KAMEX FAMILY</p>
-
     <div class="members-grid">
-      <!-- OWNER -->
       <div class="member-card fade-in">
         <span class="member-badge">👑</span>
         <div class="member-photo">👤</div>
@@ -668,20 +691,14 @@
         <div class="member-name">KMFxRenss</div>
         <span class="member-status">Founder & Leader</span>
       </div>
-
-      <!-- CO-OWNER 1 -->
       <div class="member-card fade-in">
         <span class="member-badge">🛡️</span>
         <div class="member-photo">👤</div>
         <span class="member-role">CO-OWNER</span>
         <div class="member-name">KMFxSagara</div>
         <span class="member-status">Co-Founder</span>
-        <div style="margin-top:.5rem">
-          <span class="dev-badge">⚙️ DEVELOPER</span>
-        </div>
+        <div style="margin-top:.5rem"><span class="dev-badge">⚙️ DEVELOPER</span></div>
       </div>
-
-      <!-- CO-OWNER 2 -->
       <div class="member-card fade-in">
         <span class="member-badge">🛡️</span>
         <div class="member-photo">👤</div>
@@ -689,72 +706,14 @@
         <div class="member-name">KMFxShiraaa</div>
         <span class="member-status">Co-Founder</span>
       </div>
-
-      <!-- LEADER 1 -->
-      <div class="member-card soon-card fade-in">
-        <span class="member-badge">⚔️</span>
-        <div class="member-photo">❓</div>
-        <span class="member-role">LEADER 1</span>
-        <div class="member-name"><span class="soon-label">COMING SOON</span></div>
-        <span class="member-status">Nyusul...</span>
-      </div>
-
-      <!-- LEADER 2 -->
-      <div class="member-card soon-card fade-in">
-        <span class="member-badge">⚔️</span>
-        <div class="member-photo">❓</div>
-        <span class="member-role">LEADER 2</span>
-        <div class="member-name"><span class="soon-label">COMING SOON</span></div>
-        <span class="member-status">Nyusul...</span>
-      </div>
-
-      <!-- HEAD ADMIN 1 -->
-      <div class="member-card soon-card fade-in">
-        <span class="member-badge">🧠</span>
-        <div class="member-photo">❓</div>
-        <span class="member-role">HEAD ADMIN 1</span>
-        <div class="member-name"><span class="soon-label">COMING SOON</span></div>
-        <span class="member-status">Nyusul...</span>
-      </div>
-
-      <!-- HEAD ADMIN 2 -->
-      <div class="member-card soon-card fade-in">
-        <span class="member-badge">🧠</span>
-        <div class="member-photo">❓</div>
-        <span class="member-role">HEAD ADMIN 2</span>
-        <div class="member-name"><span class="soon-label">COMING SOON</span></div>
-        <span class="member-status">Nyusul...</span>
-      </div>
-
-      <!-- ADMIN 1-4 -->
-      <div class="member-card soon-card fade-in">
-        <span class="member-badge">🔧</span>
-        <div class="member-photo">❓</div>
-        <span class="member-role">ADMIN 1</span>
-        <div class="member-name"><span class="soon-label">COMING SOON</span></div>
-        <span class="member-status">Nyusul...</span>
-      </div>
-      <div class="member-card soon-card fade-in">
-        <span class="member-badge">🔧</span>
-        <div class="member-photo">❓</div>
-        <span class="member-role">ADMIN 2</span>
-        <div class="member-name"><span class="soon-label">COMING SOON</span></div>
-        <span class="member-status">Nyusul...</span>
-      </div>
-      <div class="member-card soon-card fade-in">
-        <span class="member-badge">🔧</span>
-        <div class="member-photo">❓</div>
-        <span class="member-role">ADMIN 3</span>
-        <div class="member-name"><span class="soon-label">COMING SOON</span></div>
-        <span class="member-status">Nyusul...</span>
-      </div>
-      <div class="member-card soon-card fade-in">
-        <span class="member-badge">🔧</span>
-        <div class="member-photo">❓</div>
-        <span class="member-role">ADMIN 4</span>
-        <div class="member-name"><span class="soon-label">COMING SOON</span></div>
-        <span class="member-status">Nyusul...</span>
-      </div>
+      <div class="member-card soon-card fade-in"><span class="member-badge">⚔️</span><div class="member-photo">❓</div><span class="member-role">LEADER 1</span><div class="member-name"><span class="soon-label">COMING SOON</span></div><span class="member-status">Nyusul...</span></div>
+      <div class="member-card soon-card fade-in"><span class="member-badge">⚔️</span><div class="member-photo">❓</div><span class="member-role">LEADER 2</span><div class="member-name"><span class="soon-label">COMING SOON</span></div><span class="member-status">Nyusul...</span></div>
+      <div class="member-card soon-card fade-in"><span class="member-badge">🧠</span><div class="member-photo">❓</div><span class="member-role">HEAD ADMIN 1</span><div class="member-name"><span class="soon-label">COMING SOON</span></div><span class="member-status">Nyusul...</span></div>
+      <div class="member-card soon-card fade-in"><span class="member-badge">🧠</span><div class="member-photo">❓</div><span class="member-role">HEAD ADMIN 2</span><div class="member-name"><span class="soon-label">COMING SOON</span></div><span class="member-status">Nyusul...</span></div>
+      <div class="member-card soon-card fade-in"><span class="member-badge">🔧</span><div class="member-photo">❓</div><span class="member-role">ADMIN 1</span><div class="member-name"><span class="soon-label">COMING SOON</span></div><span class="member-status">Nyusul...</span></div>
+      <div class="member-card soon-card fade-in"><span class="member-badge">🔧</span><div class="member-photo">❓</div><span class="member-role">ADMIN 2</span><div class="member-name"><span class="soon-label">COMING SOON</span></div><span class="member-status">Nyusul...</span></div>
+      <div class="member-card soon-card fade-in"><span class="member-badge">🔧</span><div class="member-photo">❓</div><span class="member-role">ADMIN 3</span><div class="member-name"><span class="soon-label">COMING SOON</span></div><span class="member-status">Nyusul...</span></div>
+      <div class="member-card soon-card fade-in"><span class="member-badge">🔧</span><div class="member-photo">❓</div><span class="member-role">ADMIN 4</span><div class="member-name"><span class="soon-label">COMING SOON</span></div><span class="member-status">Nyusul...</span></div>
     </div>
   </div>
 </section>
@@ -767,8 +726,6 @@
     <h2 class="section-title fade-in">Gallery</h2>
     <div class="glow-line fade-in"></div>
     <p class="section-sub fade-in">Momen & kenangan bersama KAMEX FAMILY</p>
-
-    <!-- Animated glowing border wrapper -->
     <div class="gallery-border-anim fade-in">
       <div class="gallery-slider-wrap">
         <div class="gallery-embers" id="galleryEmbers"></div>
@@ -788,7 +745,6 @@
         <button class="slider-arrow next" onclick="galSlide(1)" style="z-index:20">›</button>
       </div>
     </div>
-
     <div class="gallery-grid fade-in" id="galleryGrid"></div>
   </div>
 </section>
@@ -804,19 +760,31 @@
       <p class="section-sub fade-in">Jadi bagian dari keluarga kami</p>
       <p class="join-desc fade-in">
         Scan QR Code atau klik tombol untuk langsung bergabung ke server Discord kami.<br>
-        Kami menantikan kehadiranmu di KAMEX FAMILY! 🚀
+        Follow juga TikTok kami untuk konten terbaru! 🚀
       </p>
-      <div class="fade-in">
-        <a href="https://discord.gg/" target="_blank" class="btn-discord">
+
+      <!-- ✦ Social buttons row -->
+      <div class="social-btns fade-in">
+        <a href="https://discord.gg/CvKMvcZJyd" target="_blank" class="btn-discord">
           <span class="discord-icon">💬</span> JOIN DISCORD
         </a>
+        <a href="https://www.tiktok.com/@kamexfamily" target="_blank" class="btn-tiktok">
+          <span class="tiktok-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+            </svg>
+          </span>
+          FOLLOW TIKTOK
+        </a>
       </div>
+
       <div class="qr-wrap fade-in">
         <img src="https://i.ibb.co.com/N6LJ3Myj/Screenshot-2026-04-28-21-18-44-430-com-discord-edit.jpg"
              alt="Discord QR Code" class="qr-img"
              onerror="this.src='';this.style.width='200px';this.style.height='200px';this.style.background='#1a0000';this.alt='QR Code'"/>
-        <div class="qr-label">SCAN TO JOIN</div>
+        <div class="qr-label">SCAN TO JOIN DISCORD</div>
       </div>
+
       <div class="map-placeholder fade-in">
         <span class="ph-icon">🗺️</span>
         <span>MAP — COMING SOON</span>
@@ -831,6 +799,18 @@
 <footer>
   <div class="footer-logo">KAMEX FAMILY</div>
   <div class="footer-tagline">Solidaritas Tinggi • Kekeluargaan Kuat • Roblox Community</div>
+  <!-- ✦ Footer social links -->
+  <div class="footer-socials">
+    <a href="https://discord.gg/CvKMvcZJyd" target="_blank" class="footer-social-link discord">
+      💬 DISCORD
+    </a>
+    <a href="https://www.tiktok.com/@kamexfamily" target="_blank" class="footer-social-link tiktok">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+      </svg>
+      TIKTOK
+    </a>
+  </div>
   <div class="footer-sep"></div>
   <p class="footer-copy">© 2026 KAMEX FAMILY (KMF). All Rights Reserved.</p>
 </footer>
