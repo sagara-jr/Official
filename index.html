@@ -791,9 +791,11 @@
 
         <!-- TikTok QR/Barcode -->
         <div class="qr-wrap" style="margin-bottom:0;">
-          <img src="https://i.ibb.co/67TMHdK4/Screenshot-2026-04-29-19-26-35-465-com-ss-android-ugc-trill-edit.jpg"
-               alt="TikTok Barcode" class="qr-img"
-               style="width:200px;height:auto;border-radius:12px;box-shadow:0 0 20px rgba(255,45,85,.3);display:block;"/>
+          <div style="width:200px;height:200px;border-radius:12px;overflow:hidden;margin:0 auto;box-shadow:0 0 20px rgba(255,45,85,.3);">
+            <img src="https://i.ibb.co/67TMHdK4/Screenshot-2026-04-29-19-26-35-465-com-ss-android-ugc-trill-edit.jpg"
+                 alt="TikTok Barcode"
+                 style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;"/>
+          </div>
           <div class="qr-label" style="color:#ff2d55;">🎵 SCAN TO FOLLOW TIKTOK</div>
         </div>
 
@@ -973,4 +975,4 @@ function closeLightbox(){document.getElementById('lightbox').classList.remove('o
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
 </script>
 </body>
-</html>
+          </html>
